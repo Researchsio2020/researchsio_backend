@@ -87,6 +87,7 @@ const AddBlogForm = ({ categories }) => {
         author: blog.author,
         category: blog.category,
         status: "pending",
+        comments: [],
       });
       setIsLoading(false);
       setBlog(initialState);
