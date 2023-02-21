@@ -6,9 +6,11 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import BlogCategory from "../../components/BlogCategory";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import AddBlogForm from "../../components/AddBlogForm";
+import { useAuthContext } from "../../context/AuthContext";
 
 const AddBlog = () => {
   const [categories, setCategories] = useState([]);
+  const { userDetails } = useAuthContext();
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -31,7 +33,8 @@ const AddBlog = () => {
 
   return (
     <Wrapper>
-      <BlogCategory categories={categories} />
+      {userDetails.role === "admin" && <BlogCategory categories={categories} />}
+      <hr />
       <AddBlogForm categories={categories} />
     </Wrapper>
   );

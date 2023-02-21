@@ -17,8 +17,10 @@ import {
 import { db } from "../firebase";
 import { useDashboardContext } from "../context/dashboard_context";
 import UpdateBlogModal from "./UpdateBlogModal";
+import { useAuthContext } from "../context/AuthContext";
 
 const Blog = ({ item }) => {
+  const { userDetails } = useAuthContext();
   const { id, title, description, image, author, date, status, timeStamp } =
     item;
   // console.log(item);
@@ -80,20 +82,20 @@ const Blog = ({ item }) => {
             >
               Edit
             </Link> */}
-            {status === "pending" ? (
-              <button
-                type="button"
-                className="btn btn-info"
-                style={{ marginRight: "5px" }}
-                onClick={() => {
-                  approveBlog(id);
-                }}
-              >
-                Approve
-              </button>
-            ) : (
-              ""
-            )}
+            {status === "pending"
+              ? userDetails.role === "admin" && (
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    style={{ marginRight: "5px" }}
+                    onClick={() => {
+                      approveBlog(id);
+                    }}
+                  >
+                    Approve
+                  </button>
+                )
+              : ""}
 
             <button
               type="button"

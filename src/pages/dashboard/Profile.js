@@ -10,8 +10,8 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState();
-  const { currentUser, userProfileUpdate } = useAuthContext();
-  const [userDetails, setUserDetails] = useState({});
+  const { currentUser, userProfileUpdate, userDetails } = useAuthContext();
+  // const [userDetails, setUserDetails] = useState({});
 
   const [userData, setUserData] = useState({
     name: currentUser?.displayName || "",
@@ -22,13 +22,13 @@ const Profile = () => {
     twitter: "",
     instagram: "",
   });
-  useEffect(() => {
-    const getUserDetails = async () => {
-      const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
-      setUserDetails(querySnapshot.data());
-    };
-    getUserDetails();
-  }, []);
+  // useEffect(() => {
+  //   const getUserDetails = async () => {
+  //     const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
+  //     setUserDetails(querySnapshot.data());
+  //   };
+  //   getUserDetails();
+  // }, []);
 
   useEffect(() => {
     setUserData((oldState) => {

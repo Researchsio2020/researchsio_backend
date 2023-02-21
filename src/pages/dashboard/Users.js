@@ -41,7 +41,7 @@ const Users = () => {
   }, []);
   return (
     <Wrapper>
-      <UserRoles roles={roles} />
+      {/* <UserRoles roles={roles} /> */}
       <UsersTable roles={roles} />
     </Wrapper>
   );

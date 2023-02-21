@@ -12,6 +12,7 @@ import {
   collection,
   doc,
   getDocs,
+  getDoc,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -28,7 +29,8 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState();
   const [allUsers, setAllUsers] = useState();
-
+  const [userDetails, setUserDetails] = useState({});
+  // console.log(userDetails);
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -45,8 +47,17 @@ export const AuthProvider = ({ children }) => {
     //   }
     // };
     // getAllUsers();
+
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      const querySnapshot = await getDoc(doc(db, "users", currentUser.uid));
+      setUserDetails(querySnapshot.data());
+    };
+    currentUser && getUserDetails();
+  }, [currentUser]);
 
   // sign up function
   async function signup(email, password, username) {
@@ -60,7 +71,7 @@ export const AuthProvider = ({ children }) => {
       userId: user.uid,
       email,
       username,
-      role: "",
+      role: "user",
       showHome: false,
       address: "",
       phone: "",
@@ -117,7 +128,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         userProfileUpdate,
-        allUsers,
+        userDetails,
       }}
     >
       {!loading && children}
