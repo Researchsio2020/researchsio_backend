@@ -121,7 +121,7 @@ const UsersTable = ({ roles }) => {
                 </td> */}
                 <td>
                   <form onSubmit={handleImageCategorySubmit}>
-                    {/* <select
+                    <select
                       value={role}
                       onChange={(e) => {
                         setRole(e.target.value);
@@ -129,6 +129,7 @@ const UsersTable = ({ roles }) => {
                       }}
                       className="form-select"
                     >
+                      <option value="">Select role</option>
                       {roles?.map((itemValue, index) => {
                         return (
                           <option key={index} value={itemValue.name}>
@@ -136,8 +137,8 @@ const UsersTable = ({ roles }) => {
                           </option>
                         );
                       })}
-                    </select> */}
-                    <select
+                    </select>
+                    {/* <select
                       value={role}
                       onChange={(e) => {
                         setRole(e.target.value);
@@ -147,7 +148,7 @@ const UsersTable = ({ roles }) => {
                     >
                       <option value="admin">Admin</option>
                       <option value="user">User</option>
-                    </select>
+                    </select> */}
                     <button className="btn btn-primary" type="submit">
                       Submit
                     </button>
